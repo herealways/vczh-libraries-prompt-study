@@ -77,6 +77,33 @@ The follow keywords maintain design documents in `.github/TaskLogs`, anything ex
 - Use anything else to raise a feature request, it will code, build and test your project automatically, without walking through all design documents.
 - More use cases in `AGENTS.md`.
 
+### Prompt Inventory
+
+There are two prompt groups in this repo.
+
+#### Main workflow prompts in `.github/prompts`
+
+- `0-scrum.prompt.md`: creates or updates `Copilot_Scrum.md` for backlog-style problem decomposition and task tracking.
+- `1-design.prompt.md`: writes `Copilot_Task.md` for a single task design, usually refined from the scrum backlog.
+- `2-planning.prompt.md`: writes `Copilot_Planning.md` with concrete implementation steps based on the design.
+- `3-summarizing.prompt.md`: writes `Copilot_Execution.md` by summarizing the planned code changes before implementation.
+- `4-execution.prompt.md`: performs the source changes described in `Copilot_Execution.md`.
+- `5-verifying.prompt.md`: validates that execution changes are applied, then builds and tests the project.
+- `ask.prompt.md`: analysis-only prompt for answering codebase questions without modifying files.
+- `code.prompt.md`: direct coding prompt for implementing a request without going through the full document workflow.
+- `investigate.prompt.md`: writes `Copilot_Investigate.md` for debugging, reproduction, and root-cause analysis work.
+- `kb.prompt.md`: writes `Copilot_KB.md` and updates knowledge-base content.
+- `refine.prompt.md`: extracts durable lessons from completed task logs into learning documents.
+- `review.prompt.md`: reviews design and planning documents as part of a multi-model review workflow.
+
+#### Copilot Portal prompts in `.github/Agent/prompts`
+
+- `spec.prompt.md`: spec-driven development prompt for the TypeScript Copilot Portal project, syncing `prompts/spec` into `prompts/snapshot` and then implementing the requested changes.
+- `verifySpec.prompt.md`: checks portal specification files for outdated content, bad references, and grammar or typo issues.
+- `verifyJobs.prompt.md`: checks `packages/CopilotPortal/src/jobsData.ts` against the prompt files it references and fixes broken or inconsistent prompt links and logic.
+
+The `spec` and `snapshot` subfolders in `.github/Agent/prompts` are not prompts themselves. They store the written specifications consumed by the portal-specific prompts above.
+
 You can copy the whole `.github` folder to your own repo.
 - `.github/KnowledgeBase` contains detailed documentation for the library, they will be read without having to being explicitly mentioned.
 - Prompt files tell the coding agent how to work with `msbuild` and `cdb` (the CLI version of WinDBG). 
